@@ -351,38 +351,38 @@ int main(int argc, char *argv[])
   //////////// 
   // START KPM 
   //////////// 
-  kpm_sub_data_t kpm_sub = {0};
+  // kpm_sub_data_t kpm_sub = {0};
 
-  // KPM Event Trigger
-  uint64_t period_ms = 100;
-  kpm_sub.ev_trg_def = gen_ev_trig(period_ms);
+  // // KPM Event Trigger
+  // uint64_t period_ms = 100;
+  // kpm_sub.ev_trg_def = gen_ev_trig(period_ms);
 
-  const int KPM_ran_function = 2;
+  // const int KPM_ran_function = 2;
 
-  for(size_t i =0; i < nodes.len; ++i){ 
-    // KPM Action Definition
-    kpm_sub.sz_ad = 1;
-    kpm_sub.ad = calloc(1, sizeof(kpm_act_def_t));
-    assert(kpm_sub.ad != NULL && "Memory exhausted");
+  // for(size_t i =0; i < nodes.len; ++i){ 
+  //   // KPM Action Definition
+  //   kpm_sub.sz_ad = 1;
+  //   kpm_sub.ad = calloc(1, sizeof(kpm_act_def_t));
+  //   assert(kpm_sub.ad != NULL && "Memory exhausted");
 
-    char* act = NULL;
-    for(size_t j = 0; j < nodes.n[i].len_rf; ++j){
-      sm_ran_function_t const* rf = nodes.n[i].rf;
-      if(rf[j].id == KPM_ran_function){
-        act = get_first_meas_value(&rf[j]);
-      }
-    }
-    assert(act != NULL && "No measurement list in KPM?");
+  //   char* act = NULL;
+  //   for(size_t j = 0; j < nodes.n[i].len_rf; ++j){
+  //     sm_ran_function_t const* rf = nodes.n[i].rf;
+  //     if(rf[j].id == KPM_ran_function){
+  //       act = get_first_meas_value(&rf[j]);
+  //     }
+  //   }
+  //   assert(act != NULL && "No measurement list in KPM?");
 
-    *kpm_sub.ad = gen_act_def(act); 
+  //   *kpm_sub.ad = gen_act_def(act); 
 
-    h[i] = report_sm_xapp_api(&nodes.n[i].id, KPM_ran_function, &kpm_sub, sm_cb_kpm);
-    assert(h[i].success == true);
+  //   h[i] = report_sm_xapp_api(&nodes.n[i].id, KPM_ran_function, &kpm_sub, sm_cb_kpm);
+  //   assert(h[i].success == true);
 
-    free_kpm_sub_data(&kpm_sub); 
-    if(act != NULL)
-      free(act);
-  } 
+  //   free_kpm_sub_data(&kpm_sub); 
+  //   if(act != NULL)
+  //     free(act);
+  // } 
 
   //////////// 
   // END KPM 
@@ -421,10 +421,10 @@ int main(int argc, char *argv[])
 
   sleep(5);
 
-  for(int i = 0; i < nodes.len; ++i){
-    // Remove the handle previously returned
-    rm_report_sm_xapp_api(h[i].u.handle);
-  }
+  // for(int i = 0; i < nodes.len; ++i){
+  //   // Remove the handle previously returned
+  //   rm_report_sm_xapp_api(h[i].u.handle);
+  // }
 
   sleep(1);
   //Stop the xApp
